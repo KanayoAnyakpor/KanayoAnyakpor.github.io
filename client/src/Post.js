@@ -1,13 +1,31 @@
-export default function Post(){
-    return(
-        <div className="post">
-        <div className="image">
-          <img src ="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt1259276b6d1efa78/5db05fa86e8b0c6d038c5ca2/RiotX_ChampionList_ahri.jpg?quality=90&width=250" alt =""></img>
-        </div>
-        <div classname="texts">
-          <h2>Ahri</h2>
-          <p>Ahri is a league of legends character</p>
-        </div>
+import React from 'react';
+import { formatISO9075 } from 'date-fns';
+import ImageSquare from './ImageSquare';
+import { Link } from 'react-router-dom';
+
+export default function Post({ _id, title, summary, cover, content, createdAt, author }) {
+  // Check if createdAt is a valid date
+  console.log("Client title:", title);
+
+  // Replace backslashes with forward slashes in the cover variable
+  const coverUrl = `http://localhost:5000/${cover.replace(/\\/g, '/')}`;
+
+  return (
+    <div className="post">
+      <div className="image">
+        <Link to={`/post/${_id}`}>
+        <ImageSquare imageUrl={coverUrl} />
+        </Link> 
       </div>
-    )
+      <div className="texts">
+        <h2>{title}</h2>
+        <p className="info">
+          <a className="author">{author.username}</a>
+          <time>{formatISO9075(new Date(createdAt))}</time>
+        </p>
+        <p className="summary">{summary}</p>
+      </div>
+    </div>
+  );
 }
+

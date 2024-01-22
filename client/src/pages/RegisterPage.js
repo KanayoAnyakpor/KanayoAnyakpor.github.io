@@ -13,7 +13,10 @@ export default function RegisterPage() {
             });
     
             if (!response.ok) {
+                alert('Registration failed!');
                 throw new Error(`HTTP error! Status: ${response.status}`);
+            } else{
+                alert('Registration successful!');
             }
     
             // Handle the successful response here if needed
